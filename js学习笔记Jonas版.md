@@ -1,4 +1,12 @@
-# SECTION 1: JS Fundamentals - Part 1
+
+
+
+
+
+
+
+
+# 01 SECTION : JS Fundamentals - Part 1
 
 ## 一.JS是什么
 
@@ -625,7 +633,7 @@ JS能向后兼容,但不能向前兼容,所以浏览器尽量更新到最新,JS�
 
 
 
-# SECTION 2: JS Fundamentals - Part 2
+# 02 SECTION : JS Fundamentals - Part 2
 
 ```
 'use strict';//激活严格模式,可以让产生的错误更直观,最好开头就用,错误会反馈在控制台
@@ -829,7 +837,7 @@ console.log(ages)
 
 ```
 //push:在数组最后新加元素,并产生一个关于新数组长度的返回值
-const newLength = friends.push('Jay')
+const newLength = friends.push('Jay',1,2,3,4)
 console.log(friends)
 console.log(newLength)
 
@@ -891,7 +899,23 @@ console.log(bills, tips, total)
 
 ```
 
+#### 5..Array1.contact()：合并数组
 
+```
+const a=[1,2,3];
+const b=[4,5,6];
+const c=a.contact(b)
+console.log(c)
+//结果:c[1,2,3,4,5,6]
+```
+
+#### 6..Math.min()&Math.max():最小/大值
+
+
+
+### 5.数组文档
+
+见[MDN数组](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Array)
 
 ## 三.对象(Objects)
 
@@ -1252,7 +1276,7 @@ console.log(calcAverage(bills), calcAverage(tips), calcAverage(totals));
 
 
 
-# SECTION 3:Develop Skills & Editor Setup
+# 03 SECTION : Develop Skills & Editor Setup
 
 
 
@@ -1328,61 +1352,1258 @@ prettier,设置方法见[prettier官方文档](https://prettier.io/docs/en/optio
 
 ## 五.使用google/stack overflow/MDN
 
+[MDN官网](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript)
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-## 三.数字(Numers)/日期(Dates)/计时器(Timers)
-
-## 四.进阶Dom
-
-## 五.面向对象 JS
-
-## 六.丰富项目
-
-## 七.异步 JS
-
-## 八.现代JS程序应用
-
-## 九.部署&Git
-
-## *语法
+实例:
 
 ```
-console.log(参数)               //在控制台(console)显示日志(log)
+//problem1:设计一个温度计，计算温度的升幅，并且记录下错误
+const temperatures = [3, -2, -6, -1, 'error', 9, 13, 17, 15, 14, 9, 5];
+//1)解题步骤：
+//1.什么是温度的升幅？最高温和最低温之间的差距
+//2.怎样计算最高温和最低温？
+//3.传感器错误是怎样的？怎样解决?'error'.
+//4.怎样忽略错误?
+
+//2)拆分步骤
+//1.忽略错误
+//2.提取最大值
+//3.提取最小值
+//4.计算升幅,并返回
+
+const calcTempAmplitude = function (temps) {
+  let max = 0;
+  let min = 0;
+  for (let i = 0; i < temps.length; i++) {
+    const curTemp = temps[i];
+    if (typeof curTemp !== 'number') continue;
+    if (curTemp > max) max = curTemp;
+    if (curTemp < min) min = curTemp;
+  }
+  console.log(max, min);
+  return max - min;
+};
+
+console.log(calcTempAmplitude(temperatures));
+```
+
+```
+//problem2:
+//输入两个数组
+//问题解析:合并两个数组
+
+const calcTempAmplitude = function (a, b) {
+  // let c = [];
+  // for (let i = 0; i < a.length; i++) c.push(a[i]);
+  // for (let i = 0; i < b.length; i++) c.push(b[i]);
+  let c = a.concat(b);
+  console.log(c);
+
+  let max = 0;
+  let min = 0;
+  for (let i = 0; i < c.length; i++) {
+    const curTemp = c[i];
+    if (typeof curTemp !== 'number') continue;
+    if (curTemp > max) max = curTemp;
+    if (curTemp < min) min = curTemp;
+  }
+  console.log(max, min);
+  return max - min;
+};
+
+const shiyan = [-10, 20];
+console.log(calcTempAmplitude(temperatures, shiyan));
+```
+
+## 六.debug(调试)
+
+1.意识到有bug
+
+2.找bug:console.table()
+
+3.修bug
+
+4.预防bug
+
+```
+const measureKelvin = function () {
+  const measurement = {
+    type: 'temp',
+    unit: 'celsius',
+//C)修复错误
+    value: Number(prompt('Degrees celsius:')),
+  };
+
+//B)发现错误
+  console.table(measurement);
+
+  // console.log(measurement.value);
+  // console.warn(measurement.value);
+  // console.error(measurement.value);
+
+  const kelvin = measurement.value + 273;
+  return kelvin;
+};
+//A)意识到错误
+console.log(measureKelvin());
+
+```
+
+在代码中插入debugger,实现断点功能,,后续内容不运行
+
+```
+//-------------------编程挑战1-----------------------
+const printForecast = function (arr) {
+  let sentence = `...`;
+  for (let i = 0; i < arr.length; i++) {
+    sentence += `${arr[i]}C in ${i + 1} days...`;
+  }
+  return sentence;
+};
+const a = [17, 21, 23];
+const b = [12, 5, -5, 0, 4];
+console.log(printForecast(a));
+console.log(printForecast(b));
+
+```
+
+
+
+# 04 SECTION : HTML-CSS
+
+## 一.html的基本结构和元素
+
+```
+//输入!,按Tab键,自动生成
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body></body>
+</html>
+```
+
+```
+<html>//html文件
+  <head>//这里是标题
+    <title>标题名称</title>
+    <meta>格式图标等</meta>
+  </head>
+  <body>//这里是网页上的具体内容
+    <h1></h1>//这里是网页内容的标题,从h1-6
+    <p></p>//这里是段落内容
+  </body>
+</html>
+```
+
+完整的html有<html><head><body>
+
+所有文件的主文件都叫index.html
+
+## 二.属性/类class/ID
+
+```
+//元素
+<a href="链接">文字</a>     //anchor对文字进行链接
+<img src="链接" />          //插入图片
+
+//用类/ID命名元素
+//每个id是唯一的,每个页面只能用一次
+//class可以反复使用
+//多用class,少用id
+<p class="first">...</p>
+<img id="..." src="..."/>
+
+
+```
+
+### **命名规则**:
+
+**a)**用-连接名字.
+
+**b)**class可以有多个名字,不同名字用空格连接
+
+例如: aaa class="a b-c d"   bbb class="a e-f g"
+
+**c)**调用时.代表and:
+
+document.querySelector('.a')调用aaa和bbb
+
+document.querySelector('.a.d')调用aaa
+
+document.querySelector('.a.g)调用bbb
+
+document.querySelector('e-f')调用bbb
+
+**d)**调用时空格表内部,[:]表示该元素的属性的值:
+
+```
+//一个 class 属性为"user-panel main"的 div 元素<div>(<div class="user-panel main">) 内包含一个 name 属性为"login"的 input 元素<input> (<input name="login"/>) ，如何选择，如下所示：
+
+var el = document.querySelector("div.user-panel.main input[name='login']");
+```
+
+
+
+div是个通用盒子,没有实际意义,form是名叫表单的div,有语义
+
+输入框:
+
+```
+    <form id="your-name">
+      <h2>Your name here</h2>
+      <p>Please fill in this form:)</p>
+
+      <input type="text" placeholder="Your name" />
+      <button>OK!</button>
+    </form>
+```
+
+## 三.CSS基础style
+
+style算一种设置,仅在head内生效,不进入body
+
+```
+<head>
+  <style>                        //style在<head>内
+    body{background-color:green} //声明//元素{属性:值}
+  </style>                       //声明块
+
+//或者用link,link基本只链接样式表
+    <link href="style.css" rel="stylesheet" />
+
+
+</head>
+```
+
+```
+* {         //初始化全局空间,方便后续为每个盒子设置样式
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;  //将盒子大小固定为盒子的边框范围
+}
+
+
+body{  
+  background-color:green     //背景颜色
+  font-family:Arial          //字体
+  font-size:20px             //字体颜色            
+  border:5px solid #444      //边框线:尺寸 实线 颜色
+  
+}
+
+//规则
+
+元素{属性:值}
+.类{属性:值}
+#ID{属性:值}
+
+#ID h2 {属性:值}    //这个ID内的h2设置
+```
+
+## 四.CSS盒子模型的介绍
+
+```
+content:文本/图像/或者指定内容
+width:宽度
+height:高度     //宽+高组成content
+border:边框
+padding:填充/在盒子内部创造空白     //content到边框的空间
+margin:盒子外
+
+text-align:center    //文本位置
 ```
 
 
 
 
 
+# 05 SECTION : DOM&EVENTS fundermentals
 
+## 001--项目1:guess my number--
+
+```
+console.log(document.querySelector('.message').textContent);
+//文档搜索"message"的类,并提取文本内容,在log上显示
+```
+
+### 一.DOM是什么/操作:document object model
+
+dom相当于html文档的节点树,关于dom的操作和方法等不是JS的内容,JS 仅仅是ecma的方言
+
+DOM是Web API的一部分,web api相当于一个巨大浏览器可以实现的巨大的库,可以看作是js写的(但并不是),JS可以在代码中进行访问并自动使用
+
+
+
+document->html->1.head
+
+​                                  2.body
+
+### 二.选择和操作元素
+
+```
+document.querySelector('.message').textContent = '🎉 Correct Number!';
+
+document.querySelector('.number').textContent = 13;
+document.querySelector('.score').textContent = 10;
+document.querySelector('.guess').value = 23;
+console.log(document.querySelector('.guess').value);
+
+//document.querySelector('.类名').textContent
+```
+
+
+
+### 三.点击事件(鼠标)
+
+```
+document.querySelector('.check').addEventListener('click', function () {
+  let guess = Number(document.querySelector('.guess').value);
+  console.log(guess, typeof guess);
+
+  if (!guess) {
+    document.querySelector('.message').textContent = '😅 No Number!';
+  } 
+});
+
+//对check类添加监听事件:点击,进行funtion
+//ps:0是false
+```
+
+### 四.实现游戏逻辑
+
+```
+//math.trunc()去除小数
+//math.random()在0-1取值,开区间
+
+let secretNumber = Math.trunc(Math.random() * 20) + 1;
+let score = 20;
+document.querySelector('.number').textContent = secretNumber;
+
+document.querySelector('.check').addEventListener('click', function () {
+  let guess = Number(document.querySelector('.guess').value);
+  console.log(guess, typeof guess);
+
+  if (!guess) {
+    document.querySelector('.message').textContent = '😅 No Number !';
+  } else if (guess === secretNumber) {
+    document.querySelector('.message').textContent = '🎉 Correct Number !';
+  } else if (guess > secretNumber) {
+    if (score > 1) {
+      document.querySelector('.message').textContent = '😭 Too High !';
+      score--;
+      document.querySelector('.score').textContent = score;
+    } else {
+      document.querySelector('.message').textContent = '💥 You Lose The Game !';
+      document.querySelector('.score').textContent = 0;
+    }
+  } else if (guess < secretNumber) {
+    if (score > 1) {
+      document.querySelector('.message').textContent = '😭 Too Low !';
+      score--;
+      document.querySelector('.score').textContent = score;
+    } else {
+      document.querySelector('.message').textContent = '💥 You Lose The Game !';
+      document.querySelector('.score').textContent = 0;
+    }
+  }
+});
+```
+
+### 五.CSS Style操作
+
+```
+//body前不用加.
+// 改css用.style
+//css的-命名改为驼峰命名法
+
+ document.querySelector('body').style.backgroundColor = '#60b347';
+document.querySelector('.number').style.width = '30rem';
+```
+
+### 六.again功能:代码挑战
+
+```
+//again功能:初始化功能,手动修正
+document.querySelector('.again').addEventListener('click', function () {
+  secretNumber = Math.trunc(Math.random() * 20) + 1;
+  score = 20;
+  document.querySelector('.guess').value = '';
+  document.querySelector('.score').textContent = score;
+  document.querySelector('.number').textContent = `?`;
+  document.querySelector('.number').style.width = '15rem';
+  document.querySelector('.message').textContent = 'Start guessing...';
+  document.querySelector('body').style.backgroundColor = '#222';
+});
+```
+
+### 七.最高分操作
+
+```
+let highScore = 0;
+
+if (score > highScore) {
+  highScore=score;       document.querySelector('.highscore').textContent=highScore;
+    }
+```
+
+### 八.重构代码
+
+```
+//不重复原则
+
+    //猜错了
+    else if (guess !== secretNumber) {
+      if (score > 1) {
+        document.querySelector('.message').textContent =
+          guess > secretNumber ? '😭 Too High !' : '😭 Too Low !';
+        score--;
+        document.querySelector('.score').textContent = score;
+      } else {
+        document.querySelector('.message').textContent =
+          '💥 You Lose The Game !';
+        document.querySelector('.score').textContent = 0;
+      }
+    }
+
+
+//将复杂代码写作function调用
+```
+
+## 002--项目2:Modal Window--
+
+### 0001)Modal Window
+
+```
+//querySelectorAll可以提取所有含相同名字的类,并按顺序返回一个nodelist
+const btnsOpenModal = document.querySelectorAll('.show-modal');
+console.log(btnsOpenModal);
+
+//qsa返回的nodelist具有和数组相同的功能
+for (let i = 0; i < btnsOpenModal.length; i++)
+  console.log(btnsOpenModal[i].textContent);
+```
+
+
+
+### 0002)classes操作
+
+```
+const modal = document.querySelector('.modal');
+const overlay = document.querySelector('.overlay');
+const btnCloseModal = document.querySelector('.close-modal');
+const btnsOpenModal = document.querySelectorAll('.show-modal');
+//点击关闭弹窗
+const closeModal = function () {
+  modal.classList.add('hidden');
+  overlay.classList.add('hidden');
+};
+//点击出现弹窗
+const showModal = function () {
+  console.log('Button clicked !');
+  modal.classList.remove('hidden');
+  overlay.classList.remove('hidden');
+};
+
+for (let i = 0; i < btnsOpenModal.length; i++)
+  btnsOpenModal[i].addEventListener('click', showModal);
+
+btnCloseModal.addEventListener('click', closeModal);
+overlay.addEventListener('click', closeModal);
+```
+
+==//若要实现click事件后调用函数,监听事件中应传递函数本身,即不带()==
+
+//**==classlist==**:
+
+aaa.classlist.add
+
+aaa.classlist.remove
+
+//添加监听事件时,函数不带(),仅传递函数本身,若带(),则传递函数的返回值(如果有),但函数在closeModal前已被调用,该返回值不是我们需要的.
+
+### 0003)按键事件
+
+```
+document.addEventListener('keydown', function (e) {
+  console.log(e.key);
+  if (e.key === 'Escape' && !modal.classList.contains('hidden')) closeModal();
+});
+```
+
+esc对全局起作用,所以对document起作用
+
+善用classlist,例:classlist.contains
+
+## 003--项目3:Pig Game
+
+### 0001)获取id
+
+```
+const score1EL = document.getElementById('score--1');
+
+//比querySelector快速,不用加#
+```
+
+### 0002)骰子系统
+
+```
+const current0EL = document.querySelector('#current--0');
+const current1EL = document.querySelector('#current--1');
+
+//设定当前回合分数,不能再函数里,否则会被不停定义
+let currentScore = 0;
+
+//骰子功能
+btnRoll.addEventListener('click', function () {
+  if (playing) {
+    //1.生成随机骰子
+    const dice = Math.trunc(Math.random() * 6) + 1;
+    console.log(dice);
+    //2.展示骰子
+    diceEL.classList.remove('hidden');
+    diceEL.src = `dice-${dice}.png`;
+    //3.骰子=1?换人:加到current score
+    if (dice !== 1) {
+      //把dice加到current上
+      currentScore += dice;
+      document.getElementById(`current--${activePlayer}`).textContent =
+        currentScore;
+    } else {
+      //换人
+      switchPlayer();
+    }
+  }
+});
+```
+
+### 0003)换人系统
+
+```
+const player0EL = document.querySelector('.player--0');
+const player1EL = document.querySelector('.player--1');
+let activePlayer = 0
+
+//换人功能
+const switchPlayer = function () {
+  currentScore = 0;
+  document.getElementById(`current--${activePlayer}`).textContent = 0;
+  activePlayer = activePlayer === 0 ? 1 : 0;
+  player0EL.classList.toggle('player--active');
+  player1EL.classList.toggle('player--active');
+};
+```
+
+### 0004)保存分数系统
+
+```
+//加分功能
+btnHold.addEventListener('click', function () {
+  if (playing) {
+    //1)把当前玩家的current加到score
+    scores[activePlayer] += currentScore;
+    document.getElementById(`score--${activePlayer}`).textContent =
+      scores[activePlayer];
+    //2)check if score>=100
+    if (scores[activePlayer] >= 20) {
+      //3)finish the game
+      playing = false;
+      document
+        .querySelector(`.player--${activePlayer}`)
+        .classList.add('player--winner');
+      document
+        .querySelector(`.player--${activePlayer}`)
+        .classList.remove('player--active');
+      diceEL.classList.add('hidden');
+    } else {
+      //4)switch player
+      switchPlayer();
+    }
+  }
+});
+
+```
+
+
+
+### 0005)重置游戏
+
+```
+//游戏开始前定义变量
+let scores,currentScore,activePlayer,playing
+
+//开始条件
+const init = function () {
+  player0EL.classList.remove('player--winner');
+  player1EL.classList.remove('player--winner');
+  player0EL.classList.remove('player--active');
+  player0EL.classList.add('player--active');
+  player1EL.classList.remove('player--active');
+  diceEL.classList.remove('hidden');
+  diceEL.classList.add('hidden');
+
+  score0EL.textContent = 0;
+  score1EL.textContent = 0;
+  current0EL.textContent = 0;
+  current1EL.textContent = 0;
+
+  scores = [0, 0];
+  currentScore = 0;
+  activePlayer = 0;
+  playing = true;
+};
+init();
+
+//重开功能
+btnNew.addEventListener('click', init);
+```
+
+函数内部定义的变量只能作用域函数内,是**局部变量**
+
+
+
+# 06 SECTION : JS工作原理
+
+## 一.高度概括
+
+高级/面向对象/基于原型的/多范式编程语言
+
+### 1)高级
+
+### 2)垃圾收集
+
+随时清除无用信息
+
+### 3)解释型/即时编译
+
+人类语言<->机器语言
+
+### 4)多范式
+
+三种范式:(三种都有)
+
+​	程序化的
+
+​	面向对象的
+
+​	函数式编程
+
+两种范式:
+
+​	命令式
+
+​	声明式
+
+### 5)基于原型&面向对象
+
+js中除了原始值,都是对象,例如数组继承自一个巨大的原型
+
+### 6)具有一流功能
+
+函数可以被视作变量传递给其他函数,甚至可以从函数中返回函数->可以函数式编程
+
+### 7)动态语言
+
+变量定义不需要类型,且后续可变
+
+### 8)单线程
+
+
+
+### 9)非阻塞事件循环并发模型
+
+并发模型:同时处理多个任务
+
+JS本身是在单线程中,但有任务需要同时进行,把阻塞事件放入循环中,完成后放入主线程,形成**非阻塞事件循环并发模型**
+
+
+
+## 二.JS引擎&runtime
+
+**即时编译**:同时编译和解释(过去被认为是解释语言),一般情况source code需要编译成文件再解释给机器,即时编译可以省去文件的步骤,编译后直接解释,并且进行**优化**
+
+
+
+JS可以存在与浏览器之外,但不能用**Web API**,因为提供Web API的是浏览器,Web API是dom的一部分,不属于JS.相反,JS有多个C++绑定,和一个所谓的线程池
+
+
+
+调用栈/heap + web API + 回调函数(事情发生后的第一件事,例如点击) :
+
+事情发生后的第一件事,例如点击(**回调函数**,进入回调队列)
+
+若**栈**是空的,放入堆栈处理(通过事件循环进行)
+
+## 三.执行内容&调用堆栈
+
+1编译后的代码(01)
+
+-->2唯一的全局执行上下文(顶级代码)(函数除外)
+
+​	1)**执行上下文**:类似于一个环境,JS在其中执行,储存所有必要的待执行的信息,例如传给函数的参数
+
+​	2)执行上下文里有什么:
+
+​	1.))**变量环境**:**变量**和**函数**的声明(let/const/var/function)+一个特殊的**参数**对象(包含所有传递进入执行上下文的函数的参数)
+
+​	2.))==**区块链**:==函数产生的区块链,函数可以在内部定义变量并进行访问
+
+​	3.))**关键字**(this keyword):发生在执行前
+
+​	4.))tips:**箭头函数**无参数和关键字,相反可以从最近的常规函数母级使用参数对象和this关键字
+
+-->3执行顶级代码:计算机处理收到的机器码
+
+
+
+```
+const name = 'Jonas';
+
+const first = () => {
+  let a = 1;
+  const b = second(7, 9);
+  a = a + b;
+  return a;
+};
+
+function second(x, y) {
+  var c = 2;
+  return c;
+}
+
+const x = first();
+```
+
+```
+//先Global
+name = 'Jonas'
+first = <function>
+first = <function>
+x =<unknow>
+
+//然后first
+a=1
+b=<unknow>
+
+//最后second
+c=2
+arguments=[7,9]
+```
+
+
+
+-->4函数被执行,并等待调用
+
+  1)调用堆栈:执行上下文的地方,栈顶的代码是正在运行的,调用完成后将从堆栈删除,执行并返回到上一个执行上下文(单线程一次只能处理一个)
+
+  global->first->second->(删除se
+
+
+
+cond)first->(删除first)global->删除global
+
+  2)存放堆栈
+
+-->5事件循环提供回调函数,调用函数
+
+
+
+## 四.区块&区块链
+
+1.==全局作用域==
+
+​	在任何函数和区块外
+
+​	此处声明的变量任何地方可调用
+
+2==.函数作用域==
+
+​	局部作用域
+
+​	变量仅在函数内部起效
+
+3==.块作用域==
+
+​	局部作用域
+
+​	变量仅在区块内部起效,区块表示{}的内容,例如if,for
+
+​	==只适用**let/const**声明的变量(**var**创造全局变量)==
+
+​	ES6开始,所有function作用域都是block作用域
+
+4.区块链中,子区块链可以访问所有的母区块链
+
+5**.只有函数声明的位置影响作用域链,调用函数的位置不影响,**例:
+
+
+
+```
+//词法作用域
+
+function second(){
+  c=0
+third()
+}
+
+function third(){
+  d=2
+  console.log(c+d)
+}
+
+//因为second和third的母区块都是全局区块,不在同一条区块链上,所以third读取不到变量c,即使third被second调用,作用域链也不受影响:调用函数的位置不影响作用域链
+```
+
+
+
+## 五.变量环境:提升&TDZ
+
+TDZ(时空死区,被定义前不能使用)
+
+```
+if (myname==='Jonas'){
+//------以下内容是job变量的TDZ(时空死区)
+//所以下列第一行代码将报错
+  console.log(`Jonas is a ${job}`)
+  const age=2037-1989
+  console.log(age)
+//-----------------------
+  const job='teacher'
+//x未定义
+  console.log(x)
+}
+```
+
+函数声明可以随意调用
+
+函数表达式/箭头函数被定义前不能调用
+
+|                         | 提升                         | 初始值            | 作用域/区块链 |
+| ----------------------- | ---------------------------- | ----------------- | ------------- |
+| var                     | 可以                         | undefined         | function      |
+| const/let               | 不                           | <uninitiated>,TDZ | block         |
+| function声明            | 可以                         | 实际函数          | block         |
+| function表达式/箭头函数 | 取决于用var还是const/let定义 |                   |               |
+
+**提升**存在的原因:1)使函数在实际声明前可被调用2)var是时代的眼泪
+
+```
+console.log(addDecl(2, 3));
+//addExpr被var提升为undefined,undefined(2,3)不是函数所以错误
+console.log(addExpr(2, 3));
+//addExpr被var提升为undefined,能够读取
+console.log(addExpr);
+//addArrow是const的uninitiated,所以错误
+console.log(addArrow(2, 3));
+
+function addDecl(a, b) {
+  return a + b;
+}
+
+var addExpr = function (a, b) {
+  return a + b;
+};
+
+const addArrow = (a, b) => a + b;
+
+//var 将在全局窗口(window)创建一个x的变量
+var x = 1;
+let y = 2;
+const z = 3;
+
+```
+
+
+
+## ==六.this 关键字==
+
+**1.非静态**,取决于函数的调用
+
+**2.this 不会指向函数本身,也不会指向它的变量环境,只会指向调用函数的对象**
+
+
+
+|                          | this=                                         | 备注                                                     |
+| ------------------------ | --------------------------------------------- | -------------------------------------------------------- |
+| 方法(附加到对象的函数)   | **调用**该方法的对象(不是声明)                |                                                          |
+| 简单的函数调用/变量****  | **undefined**                                 | 只对**严格模式**生效,否则指向global scope的对象,即window |
+| 箭头函数(无论是不是方法) | **没有自己的this关键字**,会指向母作用域的对象 |                                                          |
+| Event Listener           | 处理程序函数所附加的DOM Element(**元素)**     |                                                          |
+| new/call/apply/bind      |                                               |                                                          |
+
+```
+//this本身在全局变量,指向window
+console.log(this);
+
+//简单函数,this指向undefined,如果不是严格模式,也会指向window
+const calcAge = function (birthYear) {
+  console.log(2037 - birthYear);
+  console.log(this);
+};
+calcAge(1991);
+
+//简单箭头函数没有this,this指向本身的母作用域,此种情况即window
+const calcAgeArrow = birthYear => {
+  console.log(2037 - birthYear);
+  console.log(this);
+};
+calcAgeArrow(1980);
+
+//方法,this指向调用方法的对象,即jonas
+const jonas = {
+  year: 1991,
+  calcAge: function (birthYear) {
+    console.log(this);
+    console.log(2037 - this.year);
+  },
+};
+jonas.calcAge();
+
+//方法借用,this指向了matilda
+const matilda = {
+  year: 2017,
+};
+matilda.calcAge = jonas.calcAge;
+matilda.calcAge();
+
+//f()只是一个变量,this没有附着到object上,变为默认绑定关系,strict模式下是undefined,然后读取不到undefined的year,会导致error
+//与简单的函数调用有微妙区别,简单函数调用只有undefined
+const f = jonas.calcAge;
+f();
+
+```
+
+
+
+
+
+## ==七.常规函数VS箭头函数==
+
+1.==**简单函数/变量**的this=**undefined**,其属性不存在会**error**==
+
+==**箭头函数**的this=母作用域的对象=**window**,其属性不存在会**undefined**==
+
+**==2.箭头函数不要当方法用,但可以在方法内用!也不要使用var!!!!!!!!!!==**(方法内的箭头函数的this将指向方法的对象)
+
+==3.方法仅限**函数表达式**用,可以避免许多问题!==
+
+```
+//箭头函数不是方法,没有自己的this关键字,会指向自己(greet)的母作用域(全局区块)的对象(window)
+//jonas是对象,不是代码块,没有形成作用域,其属性不是被围在作用域内,只是一种字面定义对象的方式,所以greet仍在全局作用域内
+//window没有firstName的属性,所以是undefined,如果用var声明变量会在window创建属性,输出结果不会是undefined,会彻底混乱
+const jonas = {
+  firstName: 'Jonas',
+  year: 1991,
+  //calcAge附着在对象jonas上,是方法
+  calcAge: function (birthYear) {
+    console.log(this);
+    console.log(2037 - this.year);
+
+    // //解决方案1(旧版):
+    // //this此时还是jonas,将其赋值给self/that
+    // //=是赋值,不是直接等于self
+    // const self = this;
+    // //isMillennial不是方法,没有附着在对象上,是函数,
+    // const isMillenial = function () {
+    //   console.log(self);
+    //   //如果使用&,true返回1,false返回0
+    //   console.log(self.year >= 1981 && self.year <= 1996);
+    //   // console.log((this.year >= 1981) & (this.year <= 1996));
+    // };
+
+    //解决方案2:
+    //方法内使用箭头函数,将this指向方法的对象
+    const isMillenial = () => {
+      console.log(this);
+      console.log(this.year >= 1981 && this.year <= 1996);
+    };
+
+    // 这只是一个简单函数的调用,不是方法,this=undefined,没有year属性,会报错
+    isMillenial();
+  },
+
+  greet: function () {
+    console.log(`Hey ${this.firstName}`);
+  },
+};
+jonas.greet();
+jonas.calcAge();
+```
+
+
+
+## 八.arguments(参数)关键字
+
+**参数只存在于常规函数中**
+
+```
+//argument(参数)关键字
+const addExpr = function (a, b) {
+  console.log(arguments);
+  return a + b;
+};
+//可以传入很多参数,除了a,b其他都可以存在,只是未命名罢了
+addExpr(2, 5);
+addExpr(2, 5, 8, 12);
+
+var addArrow = (a, b) => {
+	//参数只存在于常规函数中,所以此处页面会报错
+  console.log(arguments);
+  return a + b;
+};
+addArrow(2, 5);
+
+```
+
+
+
+## 九.原始类型VS对象
+
+const声明的变量不可变仅限于原始值,对象可以变来变去
+
+**==const不变的是栈中的value==**
+
+堆中value改变与const/let无关
+
+![71744277753](C:\Users\86153\AppData\Local\Temp\1717442777530.png)
+
+==三大问题,日后讨论:==
+
+1.原型继承:面向对象编程
+
+2.事件循环:异步JS
+
+3.DOM的工作原理
+
+
+
+**object.assign({},本体)**
+
+```
+//原始值
+let lastName = 'Williams';
+let oldLastName = lastName;
+lastName = 'Davis';
+console.log(lastName, oldLastName);
+
+//对象
+const jessica = {
+  firstName: 'Jessica',
+  lastName: 'Williams',
+  age: 27,
+};
+
+const marriedJessica = jessica;
+marriedJessica.lastName = 'Davis';
+console.log('Before marriage:', jessica);
+console.log('After marriage:', marriedJessica);
+
+//marriedJessica={}
+
+//复制对象
+const jessica2 = {
+  firstName: 'Jessica',
+  lastName: 'Williams',
+  age: 27,
+  family: ['Alice', 'Bob'],
+};
+//改变复制体的lastName
+const jessicaCopy = Object.assign({}, jessica2);
+jessicaCopy.lastName = 'Davis';
+//object.assign只能浅拷贝,复制第一层改变,深度嵌套内容无法复制,改动会影响到原型
+jessicaCopy.family.push('Mary');
+jessicaCopy.family.push('John');
+
+console.log('Before marriage:', jessica2);
+console.log('After marriage:', jessicaCopy);
+```
+
+
+
+
+
+# 07 SECTION : 数据结构&现代操作&字符串
+
+
+
+## 一.数组解构
+
+
+
+```
+//空格表示跳过该值
+let [main, , secondery] = restaurant.categories;
+console.log(main, secondery);
+```
+
+```
+const restaurant = {
+  name: 'Classico Italiano',
+  location: 'Via Angelo Tavanti 23, Firenze, Italy',
+  categories: ['Italian', 'Pizzeria', 'Vegetarian', 'Organic'],
+  starterMenu: ['Focaccia', 'Bruschetta', 'Garlic Bread', 'Caprese Salad'],
+  mainMenu: ['Pizza', 'Pasta', 'Risotto'],
+
+  order: function (starterIndex, mainIndex) {
+    return [this.starterMenu[starterIndex], this.mainMenu[mainIndex]];
+  },
+```
+
+
+
+```
+//交换值2
+[main, secondery] = [secondery, main];
+console.log(main, secondery);
+
+//接收一个函数的两个返回值
+const [starter, mainCourse] = restaurant.order(2, 0);
+console.log(starter, mainCourse);
+
+//nested解构
+const nested = [2, 4, [5, 6]];
+// const [i, , j] = nested;
+const [i, , [j, k]] = nested;
+console.log(i, j, k);
+
+//默认值
+const [p = 1, q = 1, r = 1] = [8, 9];
+console.log(p, q, r);
+
+```
+
+
+
+## 二.对象解构
+
+```
+const restaurant = {
+  name: 'Classico Italiano',
+  location: 'Via Angelo Tavanti 23, Firenze, Italy',
+  categories: ['Italian', 'Pizzeria', 'Vegetarian', 'Organic'],
+  starterMenu: ['Focaccia', 'Bruschetta', 'Garlic Bread', 'Caprese Salad'],
+  mainMenu: ['Pizza', 'Pasta', 'Risotto'],
+
+  openingHours: {
+    thu: {
+      open: 12,
+      close: 22,
+    },
+    fri: {
+      open: 11,
+      close: 23,
+    },
+    sat: {
+      open: 0, // Open 24 hours
+      close: 24,
+    },
+  },
+
+  order: function (starterIndex, mainIndex) {
+    return [this.starterMenu[starterIndex], this.mainMenu[mainIndex]];
+  },
+
+  orderDelivery: function ({
+    starterIndex = 1,
+    mainIndex = 1,
+    time = '20:00',
+    address,
+  }) {
+    console.log(
+      `Order recieved! ${this.starterMenu[starterIndex]} and ${this.mainMenu[mainIndex]} will be delivered to ${address} at ${time}.`
+    );
+  },
+};
+
+restaurant.orderDelivery({
+  time: '22:30',
+  address: 'Via del Sola, 21',
+  mainIndex: 2,
+  starterIndex: 2,
+});
+
+restaurant.orderDelivery({
+  address: 'Via del Sola, 21',
+  starterIndex: 1,
+});
+//对象解构
+
+const { name, openingHours, categories } = restaurant;
+console.log(name, openingHours, categories);
+//属性改名
+const {
+  name: restaurantName,
+  openingHours: hours,
+  categories: tags,
+} = restaurant;
+console.log(restaurantName, hours, tags);
+
+//默认值
+const { menu = [], starterMenu: starters = [] } = restaurant;
+console.log(menu, starters);
+
+//变异变量
+let a = 111;
+let b = 999;
+const obj = { a: 23, b: 7, c: 14 };
+({ a, b } = obj);
+console.log(a, b);
+//对象解构
+
+const {
+  fri: { open, close },
+} = openingHours;
+console.log(open, close);
+```
+
+## 三.spread运算符
+
+
+
+
+
+
+
+
+
+# 08 SECTION :
+
+# 09 SECTION :数字(NumBers)/日期(Dates)/计时器(Timers)
+
+
+
+# 10 SECTION :
+
+# 11 SECTION :
+
+# 12 SECTION :
+
+# 13 SECTION :
+
+# 14 SECTION :
+
+# 15 SECTION :
+
+# 16 SECTION :
+
+# 17 SECTION :现代JS程序应用
+
+
+
+# *语法
+
+
+
+### 1.console.log():控制台显示
+
+```
+console.log(参数)               
+//在控制台(console)显示日志(log)
+```
 
 
 
